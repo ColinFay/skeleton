@@ -63,6 +63,7 @@ body{
 
 .container {
   max-width: 80%;
+  margin-bottom: 3em;
 }
 
 .header {
