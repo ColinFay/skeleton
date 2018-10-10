@@ -6,6 +6,10 @@ body{
   margin-top:2em;
 }
 
+a.navbar-link.clicked {
+    color: #1EAEDB;
+}
+
 .hidethat {
   display:none;
 }

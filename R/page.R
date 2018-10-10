@@ -20,6 +20,7 @@ sk_page <- function(...){
       tags$script('$( document ).ready(function() {
                 $( ".row" ).hide();
                 $( ".row" ).first().show();
+                $( ".navbar-link" ).first().addClass("clicked");
                   });')
       )
   )
@@ -58,8 +59,11 @@ sk_nav_item <- function(id, label) {
     class = "navbar-item",
     tags$a(
       class = "navbar-link",
-      href = "javascript:void(0)",#paste0("#",id),
-      onclick = glue::glue('$( ".row" ).hide();$( "#{id}" ).show();$( "#{id}" ).trigger("show");$( "#{id}" ).trigger("shown")'),
+      href = "javascript:void(0)",
+      onclick = glue::glue('$( "a.navbar-link" ).removeClass("clicked");
+                            $( this ).addClass("clicked");
+                            $( ".row" ).hide();
+                            $( "#{id}" ).show();$( "#{id}" ).trigger("show");$( "#{id}" ).trigger("shown")'),
       label
     )
   )
