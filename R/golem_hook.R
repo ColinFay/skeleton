@@ -7,15 +7,15 @@
 #' @export
 #' @rdname golem_hook
 #' @examples
-#' if (FALSE){
+#' if (FALSE) {
 #'   golem::create_golem(
 #'     "skboilerplate",
-#'     project_hook = ghook_boilerplate
-#'     )
+#'     project_hook = ghook_sk_boilerplate
+#'   )
 #'   golem::create_golem(
 #'     "skdashboard",
-#'     project_hook = skeleton::ghook_dashboard
-#'     )
+#'     project_hook = skeleton::ghook_sk_dashboard
+#'   )
 #' }
 ghook_sk_boilerplate <- function(path, package_name, ...) {
   golem_boilerplate_replace_in_ui()
@@ -35,8 +35,7 @@ ghook_sk_dashboard <- function(path, package_name, ...) {
 
 # from https://github.com/ThinkR-open/ghooks/blob/main/R/detect_ui_line.R
 detect_ui_line <- function(
-  path = "R/app_ui.R"
-) {
+  path = "R/app_ui.R") {
   grep(
     "fluidPage\\(",
     readLines(
@@ -46,8 +45,7 @@ detect_ui_line <- function(
 }
 
 detect_server_line <- function(
-  path = "R/app_server.R"
-) {
+  path = "R/app_server.R") {
   grep(
     "Your application server logic",
     readLines(
@@ -67,9 +65,9 @@ replace_in_module_file <- function(module_name) {
 
 golem_boilerplate_replace_in_ui <- function() {
   ui_lines <- readLines("R/app_ui.R")
-    ui_lines[
-      grep("h1\\(", ui_lines)
-    ] <- ""
+  ui_lines[
+    grep("h1\\(", ui_lines)
+  ] <- ""
   ui_lines[detect_ui_line()] <- '    sk_page(
       h1("Hello world"),
       sk_row(
@@ -79,9 +77,9 @@ golem_boilerplate_replace_in_ui <- function() {
       sk_row(
         plotOutput("plot1")
       )'
-    ui_lines[
-      grep("h1(\"Hello world\")", ui_lines)
-    ] <- ""
+  ui_lines[
+    grep("h1(\"Hello world\")", ui_lines)
+  ] <- ""
   ui_lines[
     grep("@import shiny", ui_lines)
   ] <- "#' @import shiny\n#' @import skeleton"
@@ -100,9 +98,9 @@ golem_boilerplate_replace_in_server <- function() {
 
 golem_dashboard_replace_in_ui <- function() {
   ui_lines <- readLines("R/app_ui.R")
-    ui_lines[
-      grep("h1\\(", ui_lines)
-    ] <- ""
+  ui_lines[
+    grep("h1\\(", ui_lines)
+  ] <- ""
   ui_lines[detect_ui_line()] <- 'sk_page(
   sk_row(
     h2("A dead simple, responsive boilerplate."),

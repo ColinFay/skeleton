@@ -65,7 +65,7 @@
 #'     # Server code goes here
 #'   })
 #' }
-#' 
+#'
 sk_page <- function(...) {
   tagList(
     sk_deps(),
@@ -95,9 +95,9 @@ sk_row <- function(..., id = NULL) {
 #'
 #' @importFrom htmltools tags
 sk_col <- function(width, ..., id = NULL) {
-    if (width < 1 || width > 12) {
-      stop("width must be between 1 and 12 included")
-    }
+  if (width < 1 || width > 12) {
+    stop("width must be between 1 and 12 included")
+  }
   tags$div(
     id = id,
     class = to_letter(width),
@@ -121,7 +121,7 @@ sk_col_one_third <- function(..., id = NULL) {
 #' @rdname sk_page
 #'
 #' @importFrom htmltools tags
-sk_col_one_half <- function( ..., id = NULL) {
+sk_col_one_half <- function(..., id = NULL) {
   tags$div(
     id = id,
     class = "one-half column",

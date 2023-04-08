@@ -60,7 +60,7 @@ test_that("skdashboard works", {
       )
     )
   )
-    expect_true(
-      golem::is_golem(".")
-    )
+  expect_true(
+    golem::is_golem(".")
+  )
 })

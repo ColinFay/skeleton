@@ -13,7 +13,7 @@
 #' @rdname sk_nav
 #'
 #' @examples
-#' if (FALSE){
+#' if (FALSE) {
 #'   ui <- sk_page(
 #'     sk_row(
 #'       h2("A dead simple, responsive boilerplate."),
@@ -80,7 +80,7 @@ sk_nav <- function(...) {
   all_ids <- c()
   all_titles <- c()
   all_uis <- list()
-  for (ui in uis){
+  for (ui in uis) {
     all_ids <- c(all_ids, ui$id)
     all_titles <- c(all_titles, ui$title)
     all_uis[[length(all_uis) + 1]] <- ui$ui
@@ -95,7 +95,8 @@ sk_nav <- function(...) {
           tags$ul(
             class = "navbar-list",
             lapply(
-              1:length(uis), {
+              1:length(uis),
+              {
                 function(idx) {
                   tags$li(
                     class = "navbar-item",
@@ -117,7 +118,8 @@ sk_nav <- function(...) {
     tags$div(
       class = "container",
       lapply(
-        1:length(uis), {
+        1:length(uis),
+        {
           function(idx) {
             tags$div(
               class = "row-nav-content-items",
@@ -144,11 +146,10 @@ sk_nav_item <- function(
   id,
   title,
   ui
-) {
+    ) {
   list(
     id = id,
     title = title,
     ui = ui
   )
 }
-

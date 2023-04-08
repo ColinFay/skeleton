@@ -41,7 +41,7 @@
 #'       sk_button("send", "Send")
 #'     )
 #'   )
-#' 
+#'
 #'   server <- function(input, output) {
 #'     # Server code goes here
 #'     observeEvent(input$button, {
@@ -54,8 +54,7 @@
 #'   shinyApp(ui, server)
 #' }
 sk_select_input <- function(
-  ...
-){
+  ...) {
   selectInput(
     ...
   )
@@ -65,8 +64,7 @@ sk_select_input <- function(
 #'
 #' @importFrom shiny textInput
 sk_text_input <- function(
-  ...
-){
+  ...) {
   textInput(
     ...
   )
@@ -76,8 +74,7 @@ sk_text_input <- function(
 #'
 #' @importFrom shiny textAreaInput
 sk_area_input <- function(
-  ...
-){
+  ...) {
   textAreaInput(
     ...
   )

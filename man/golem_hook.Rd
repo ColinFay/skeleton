@@ -30,11 +30,11 @@ golem_hook
 if (FALSE){
   golem::create_golem(
     "skboilerplate",
-    project_hook = ghook_boilerplate
+    project_hook = ghook_sk_boilerplate
     )
   golem::create_golem(
     "skdashboard",
-    project_hook = skeleton::ghook_dashboard
+    project_hook = skeleton::ghook_sk_dashboard
     )
 }
 }
