@@ -2,15 +2,22 @@ Package: skeleton
 Title: Skeleton CSS for Shiny
 Version: 0.0.0.9000
 Authors@R: c(
-  person("Colin", "Fay", email = "contact@colinfay.me", role = c("aut", "cre")),
-  person("Dave", "Gamache", comment = "Skeleton CSS creator")
+    person("Colin", "Fay", , "contact@colinfay.me", role = c("aut", "cre")),
+    person("Dave", "Gamache", role = c("ctb", "cph"),
+           comment = "Skeleton CSS creator")
   )
 Description: Skeleton CSS for Shiny.
-Depends: R (>= 3.3.3)
 License: MIT + file LICENSE
+Depends:
+    R (>= 3.3.3)
+Imports:
+    golem (>= 0.4.8),
+    htmltools,
+    shiny,
+    styler (>= 1.9.1)
+Suggests:
+    testthat (>= 3.1.7)
 Encoding: UTF-8
 LazyData: true
-Imports: 
-    htmltools,
-    shiny
-RoxygenNote: 6.1.0
+Roxygen: list(roclets = c("namespace", "rd", "roxytest::testthat_roclet"))
+RoxygenNote: 7.2.3

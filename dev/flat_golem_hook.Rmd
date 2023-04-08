@@ -1,0 +1,237 @@
+---
+title: "flat_golem_hook.Rmd empty"
+output: html_document
+editor_options:
+  chunk_output_type: console
+---
+
+```{r development, include=FALSE}
+library(testthat)
+```
+
+```{r development-load}
+# Load already included functions if relevant
+pkgload::load_all(export_all = FALSE)
+```
+
+# golem_hook
+
+```{r function-golem_hook}
+#' golem_hook
+#'
+#' @return used for side effects
+#' @inheritParams golem::project_hook
+#' @export
+#' @rdname golem_hook
+ghook_sk_boilerplate <- function(path, package_name, ...) {
+  golem_boilerplate_replace_in_ui()
+  golem_boilerplate_replace_in_server()
+}
+
+#' @export
+#' @rdname golem_hook
+ghook_sk_dashboard <- function(path, package_name, ...) {
+  golem_dashboard_replace_in_ui()
+  golem_dashboard_replace_in_server()
+  golem::add_module("tab1", open = FALSE)
+  golem::add_module("tab2", open = FALSE)
+  replace_in_module_file("tab1")
+  replace_in_module_file("tab2")
+}
+
+# from https://github.com/ThinkR-open/ghooks/blob/main/R/detect_ui_line.R
+detect_ui_line <- function(
+  path = "R/app_ui.R"
+) {
+  grep(
+    "fluidPage\\(",
+    readLines(
+      path
+    )
+  )
+}
+
+detect_server_line <- function(
+  path = "R/app_server.R"
+) {
+  grep(
+    "Your application server logic",
+    readLines(
+      path
+    )
+  )
+}
+
+replace_in_module_file <- function(module_name) {
+  module_lines <- readLines(paste0("R/mod_", module_name, ".R"))
+  module_lines[
+    grep("tagList\\(", module_lines) + 1
+  ] <- sprintf('"Hello %s"', module_name)
+  writeLines(module_lines, paste0("R/mod_", module_name, ".R"))
+  styler::style_file(paste0("R/mod_", module_name, ".R"))
+}
+
+golem_boilerplate_replace_in_ui <- function() {
+  ui_lines <- readLines("R/app_ui.R")
+    ui_lines[
+      grep("h1\\(", ui_lines)
+    ] <- ""
+  ui_lines[detect_ui_line()] <- '    sk_page(
+      h1("Hello world"),
+      sk_row(
+        sk_col(6, "Hello"),
+        sk_col(6, "World")
+      ),
+      sk_row(
+        plotOutput("plot1")
+      )'
+    ui_lines[
+      grep("h1(\"Hello world\")", ui_lines)
+    ] <- ""
+  ui_lines[
+    grep("@import shiny", ui_lines)
+  ] <- "#'@import shiny\n#' @import skeleton"
+  writeLines(ui_lines, "R/app_ui.R")
+  styler::style_file("R/app_ui.R")
+}
+
+golem_boilerplate_replace_in_server <- function() {
+  server_lines <- readLines("R/app_server.R")
+  server_lines[detect_server_line()] <- "  output$plot1 <- renderPlot({
+    plot(mtcars)
+  })"
+  writeLines(server_lines, "R/app_server.R")
+  styler::style_file("R/app_server.R")
+}
+
+golem_dashboard_replace_in_ui <- function() {
+  ui_lines <- readLines("R/app_ui.R")
+    ui_lines[
+      grep("h1\\(", ui_lines)
+    ] <- ""
+  ui_lines[detect_ui_line()] <- 'sk_page(
+  sk_row(
+    h2("A dead simple, responsive boilerplate."),
+  ),
+  sk_nav(
+    sk_nav_item(
+      id = "one",
+      title = "ONE",
+      ui = mod_tab1_ui("tab1_1")
+    ),
+    sk_nav_item(
+      id = "two",
+      title = "TWO",
+      ui = mod_tab2_ui("tab2_1")
+    )
+  )'
+  ui_lines[
+    grep("@import shiny", ui_lines)
+  ] <- "#'@import shiny\n#' @import skeleton"
+  writeLines(ui_lines, "R/app_ui.R")
+  styler::style_file("R/app_ui.R")
+}
+golem_dashboard_replace_in_server <- function() {
+  server_lines <- readLines("R/app_server.R")
+  server_lines[detect_server_line()] <- '  mod_tab1_server("tab1_1")
+  mod_tab2_server("tab2_1")'
+  writeLines(server_lines, "R/app_server.R")
+  styler::style_file("R/app_server.R")
+}
+```
+
+```{r examples-golem_hook}
+if (FALSE){
+  golem::create_golem(
+    "skboilerplate",
+    project_hook = ghook_boilerplate
+    )
+  golem::create_golem(
+    "skdashboard",
+    project_hook = skeleton::ghook_dashboard
+    )
+}
+```
+
+```{r tests-golem_hook}
+test_that("skboilerplate works", {
+  skip_if_not_installed("golem")
+  old <- setwd(tempdir())
+  on.exit(setwd(old))
+  unlink("skboilerplate", recursive = TRUE)
+  golem::create_golem(
+    "skboilerplate",
+    project_hook = ghook_sk_boilerplate
+  )
+  expect_true(
+    any(
+      grepl(
+        "sk_page",
+        readLines("R/app_ui.R")
+      )
+    )
+  )
+  expect_true(
+    any(
+      grepl(
+        "skeleton",
+        readLines("R/app_ui.R")
+      )
+    )
+  )
+  expect_true(
+    golem::is_golem(".")
+  )
+})
+test_that("skdashboard works", {
+  skip_if_not_installed("golem")
+  old <- setwd(tempdir())
+  on.exit(setwd(old))
+  unlink("skdashboard", recursive = TRUE)
+  golem::create_golem(
+    "skdashboard",
+    project_hook = ghook_sk_dashboard
+  )
+  expect_true(
+    file.exists("R/mod_tab1.R")
+  )
+  expect_true(
+    file.exists("R/mod_tab2.R")
+  )
+  expect_true(
+    any(
+      grepl(
+        "mod_tab1_ui",
+        readLines("R/app_ui.R")
+      )
+    )
+  )
+  expect_true(
+    any(
+      grepl(
+        "skeleton",
+        readLines("R/app_ui.R")
+      )
+    )
+  )
+    expect_true(
+      golem::is_golem(".")
+    )
+})
+```
+
+
+```{r development-inflate, eval=FALSE}
+# Run but keep eval=FALSE to avoid infinite loop
+# Execute in the console directly
+rm(list = ls())
+fusen::inflate(
+  flat_file = "dev/flat_golem_hook.Rmd",
+  vignette_name = NA
+)
+grkstyle::grk_style_pkg()
+golem::create_golem("skboilerplate", project_hook = ghook_boilerplate)
+golem::create_golem("skdashboard", project_hook = skeleton::ghook_dashboard)
+remotes::install_local(force = TRUE)
+```
+

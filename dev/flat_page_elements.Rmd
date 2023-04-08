@@ -1,0 +1,630 @@
+---
+title: "flat_page_elements.Rmd empty"
+output: html_document
+editor_options:
+  chunk_output_type: console
+---
+
+```{r development, include=FALSE}
+library(testthat)
+```
+
+```{r development-load}
+# Load already included functions if relevant
+pkgload::load_all(export_all = FALSE)
+```
+
+# html_deps
+
+```{r function-html_deps}
+#' Skeleton deps
+#'
+#' @return An HTMLdep object
+#' @export
+#' @filename sk_deps.R
+sk_deps <- function() {
+  htmltools::htmlDependency(
+    name = "skeleton-css",
+    version = "2.0.4",
+    src = system.file("skeleton", package = "skeleton"),
+    script = c(
+      "js/onload.js"
+    ),
+    stylesheet = c(
+      "css/forapp.css",
+      "css/font.css",
+      "css/skeleton.css",
+      "css/normalize.css"
+    )
+  )
+}
+```
+
+```{r examples-html_deps}
+sk_deps()
+```
+
+```{r tests-html_deps}
+test_that("sk_deps works", {
+  deps <- sk_deps()
+  expect_true(
+    inherits(deps, "html_dependency")
+  )
+  expect_true(
+    deps$name == "skeleton-css"
+  )
+  expect_true(
+    deps$version == "2.0.4"
+  )
+})
+```
+
+# utils
+
+```{r function-utils}
+#' Util functions
+#'
+#' @param num The number to convert to letter
+#'
+#' @noRd
+#' @filename sk_utils.R
+to_letter <- function(num) {
+  switch(
+    as.character(num),
+    "1" = "one column",
+    "2" = "two columns",
+    "3" = "three columns",
+    "4" = "four columns",
+    "5" = "five columns",
+    "6" = "six columns",
+    "7" = "seven columns",
+    "8" = "eight columns",
+    "9" = "nine columns",
+    "10" = "ten columns",
+    "11" = "eleven columns",
+    "12" = "twelve columns"
+  )
+}
+```
+
+```{r tests-utils}
+test_that("utils works", {
+  expect_equal(
+    to_letter(1),
+    "one column"
+  )
+  expect_equal(
+    to_letter(2),
+    "two columns"
+  )
+  expect_equal(
+    to_letter(3),
+    "three columns"
+  )
+  expect_equal(
+    to_letter(4),
+    "four columns"
+  )
+  expect_equal(
+    to_letter(5),
+    "five columns"
+  )
+  expect_equal(
+    to_letter(6),
+    "six columns"
+  )
+  expect_equal(
+    to_letter(7),
+    "seven columns"
+  )
+  expect_equal(
+    to_letter(8),
+    "eight columns"
+  )
+  expect_equal(
+    to_letter(9),
+    "nine columns"
+  )
+  expect_equal(
+    to_letter(10),
+    "ten columns"
+  )
+  expect_equal(
+    to_letter(11),
+    "eleven columns"
+  )
+  expect_equal(
+    to_letter(12),
+    "twelve columns"
+  )
+
+})
+```
+
+# page
+
+```{r function-page_elements}
+#' Skeleton Page
+#'
+#' @param id The id of the element
+#' @param width The width of the element
+#' @param ... The content of the element
+#' @param title The title of the page
+#' @return A skeleton html element
+#'
+#' @export
+#' @rdname sk_page
+#' @filename sk_page
+#' @importFrom htmltools tags
+sk_page <- function(...) {
+  tagList(
+    sk_deps(),
+    tags$body(
+      tags$div(
+        class = "container",
+        ...
+      )
+    )
+  )
+}
+
+#' @export
+#' @rdname sk_page
+#' @filename sk_page
+#' @importFrom htmltools tags
+sk_row <- function(..., id = NULL) {
+  tags$div(
+    id = id,
+    class = "row",
+    ...
+  )
+}
+
+#' @export
+#' @rdname sk_page
+#' @filename sk_page
+#' @importFrom htmltools tags
+sk_col <- function(width, ..., id = NULL) {
+    if (width < 1 || width > 12) {
+      stop("width must be between 1 and 12 included")
+    }
+  tags$div(
+    id = id,
+    class = to_letter(width),
+    ...
+  )
+}
+
+#' @export
+#' @rdname sk_page
+#' @filename sk_page
+#' @importFrom htmltools tags
+sk_col_one_third <- function(..., id = NULL) {
+  tags$div(
+    id = id,
+    class = "one-third column",
+    ...
+  )
+}
+
+#' @export
+#' @rdname sk_page
+#' @filename sk_page
+#' @importFrom htmltools tags
+sk_col_one_half <- function( ..., id = NULL) {
+  tags$div(
+    id = id,
+    class = "one-half column",
+    ...
+  )
+}
+
+#' @export
+#' @rdname sk_page
+#' @filename sk_page
+#' @importFrom htmltools tags
+sk_col_two_third <- function(..., id = NULL) {
+  tags$div(
+    id = id,
+    class = "two-thirds column",
+    ...
+  )
+}
+
+#' @export
+#' @rdname sk_page
+#' @filename sk_page
+#' @importFrom htmltools tags h2
+sk_header <- function(title, ...) {
+  tags$section(
+    class = "header",
+    h2(
+      class = "title",
+      title
+    ),
+    ...
+  )
+}
+```
+
+```{r examples-page_elements}
+if (FALSE) {
+  ui <- sk_page(
+    tags$style(
+      ".columns, .column {
+        background: #EEE;
+        text-align: center;
+        border-radius: 4px;
+        margin-bottom: 1.5rem;
+      }"
+    ),
+    sk_row(
+      h2("A dead simple, responsive boilerplate."),
+    ),
+    sk_row(
+      tags$p(
+        "The grid is a 12-column fluid grid with a max width of 960px,",
+        "that shrinks with the browser/device at smaller sizes.",
+        "The max width can be changed with one line of CSS and",
+        "all columns will resize accordingly.",
+        "The syntax is simple and it makes coding",
+        "responsive much easier. Go ahead, resize the browser."
+      )
+    ),
+    sk_row(
+      sk_col(1, "ONE"),
+      sk_col(11, "ELEVEN")
+    ),
+    sk_row(
+      sk_col(2, "TWO"),
+      sk_col(10, "TEN"),
+    ),
+    sk_row(
+      sk_col(3, "THREE"),
+      sk_col(9, "NINE")
+    ),
+    sk_row(
+      sk_col(4, "FOUR"),
+      sk_col(8, "EIGHT")
+    ),
+    sk_row(
+      sk_col(5, "FIVE"),
+      sk_col(7, "SEVEN")
+    ),
+    sk_row(
+      sk_col(6, "SIX"),
+      sk_col(6, "SIX")
+    )
+  )
+  shinyApp(ui, function(input, output) {
+    # Server code goes here
+  })
+}
+
+```
+
+```{r tests-page_elements}
+test_that("sk_page works", {
+  pg <- sk_page(
+    "Hello world"
+  )
+  expect_true(
+    inherits(pg, "shiny.tag.list")
+  )
+  expect_error(
+    sk_col(0, "Hello world")
+  )
+  expect_error(
+    sk_col(13, "Hello world")
+  )
+})
+
+test_that("sk_row works", {
+  expect_true(
+    inherits(
+      sk_row("Hello world"),
+      "shiny.tag"
+    )
+  )
+  expect_true(
+    sk_row("Hello world")[["attribs"]]$class == "row"
+  )
+})
+
+test_that("sk_col works", {
+  expect_true(
+    sk_col(1, "Hello world")[["attribs"]]$class == "one column"
+  )
+  expect_true(
+    sk_col(2, "Hello world")[["attribs"]]$class == "two columns"
+  )
+  expect_true(
+    sk_col(3, "Hello world")[["attribs"]]$class == "three columns"
+  )
+  expect_true(
+    sk_col(4, "Hello world")[["attribs"]]$class == "four columns"
+  )
+  expect_true(
+    sk_col(5, "Hello world")[["attribs"]]$class == "five columns"
+  )
+  expect_true(
+    sk_col(6, "Hello world")[["attribs"]]$class == "six columns"
+  )
+  expect_true(
+    sk_col(7, "Hello world")[["attribs"]]$class == "seven columns"
+  )
+  expect_true(
+    sk_col(8, "Hello world")[["attribs"]]$class == "eight columns"
+  )
+  expect_true(
+    sk_col(9, "Hello world")[["attribs"]]$class == "nine columns"
+  )
+  expect_true(
+    sk_col(10, "Hello world")[["attribs"]]$class == "ten columns"
+  )
+  expect_true(
+    sk_col(11, "Hello world")[["attribs"]]$class == "eleven columns"
+  )
+  expect_true(
+    sk_col(12, "Hello world")[["attribs"]]$class == "twelve columns"
+  )
+  expect_true(
+    sk_col_one_third("Hello world")[["attribs"]]$class == "one-third column"
+  )
+  expect_true(
+    sk_col_one_half("Hello world")[["attribs"]]$class == "one-half column"
+  )
+  expect_true(
+    sk_col_two_third("Hello world")[["attribs"]]$class == "two-thirds column"
+  )
+  expect_true(
+    sk_col_one_third("Hello world", id = "my_id")[["attribs"]]$id == "my_id"
+  )
+  expect_true(
+    sk_col_one_half("Hello world", id = "my_id")[["attribs"]]$id == "my_id"
+  )
+  expect_true(
+    sk_col_two_third("Hello world", id = "my_id")[["attribs"]]$id == "my_id"
+  )
+})
+```
+
+# button
+
+```{r function-button}
+#' Buttons
+#'
+#' Standard & primary buttons
+#'
+#' @return an actionButton
+#'
+#' @export
+#' @inheritParams shiny::actionButton
+#' @rdname sk_buttons
+#' @filename sk_buttons
+sk_button <- function(
+  inputId,
+  label,
+  ...
+){
+  shiny::actionButton(
+    inputId = inputId,
+    label = label,
+    ...
+  )
+}
+#' @export
+#' @rdname sk_buttons
+#' @filename sk_buttons
+sk_button_primary <- function(
+  inputId,
+  label,
+  ...
+    ) {
+  shiny::actionButton(
+    inputId = inputId,
+    label = label,
+    class = "button-primary",
+  )
+}
+```
+
+```{r example-button}
+if (FALSE) {
+  ui <- sk_page(
+    h1("Hello world"),
+    sk_row(
+      sk_col(6, "Hello"),
+      sk_col(6, "World"),
+      sk_button("button", "Button"),
+      sk_button_primary("button_primary", "Button primary")
+    )
+  )
+
+  server <- function(input, output) {
+    # Server code goes here
+    observeEvent(input$button, {
+      print("Hello standard button")
+    })
+    observeEvent(input$button_primary, {
+      print("Hello button_primary")
+    })
+  }
+  shinyApp(ui, server)
+}
+```
+
+```{r tests-button}
+test_that("sk_button works", {
+  expect_true(
+    inherits(
+      sk_button("button", "Button"),
+      "shiny.tag"
+    )
+  )
+  expect_true(
+    grepl(
+      "action-button",
+      sk_button("button", "Button")[["attribs"]]$class
+    )
+  )
+  expect_true(
+    sk_button("button", "Button")[["attribs"]]$id == "button"
+  )
+  expect_true(
+    sk_button("button", "Button")[["attribs"]]$type == "button"
+  )
+  expect_true(
+    inherits(
+      sk_button_primary("button", "Button"),
+      "shiny.tag"
+    )
+  )
+  expect_true(
+    grepl(
+      "action-button",
+      sk_button_primary("button", "Button")[["attribs"]]$class
+    )
+  )
+  expect_true(
+    sk_button_primary("button", "Button")[["attribs"]]$id == "button"
+  )
+  expect_true(
+    sk_button_primary("button", "Button")[["attribs"]]$type == "button"
+  )
+})
+```
+
+# inputs
+
+```{r function-inputs}
+#' Inputs
+#'
+#' Skeleton inputs
+#'
+#' @return an input tag (selectInput, textInput, textAreaInput)
+#' @param ... arguments passed to the `selectInput` function
+#'
+#' @export
+#' @rdname sk_inputs
+#' @filename sk_inputs
+#' @importFrom shiny selectInput
+sk_select_input <- function(
+  ...
+){
+  selectInput(
+    ...
+  )
+}
+#' @export
+#' @rdname sk_inputs
+#' @filename sk_inputs
+#' @importFrom shiny textInput
+sk_text_input <- function(
+  ...
+){
+  textInput(
+    ...
+  )
+}
+#' @export
+#' @rdname sk_inputs
+#' @filename sk_inputs
+#' @importFrom shiny textAreaInput
+sk_area_input <- function(
+  ...
+){
+  textAreaInput(
+    ...
+  )
+}
+```
+
+```{r example-inputs}
+if (FALSE) {
+  ui <- sk_page(
+    h1("Hello world"),
+    sk_row(
+      sk_col(
+        6,
+        sk_text_input(
+          "email",
+          "Your Email"
+        )
+      ),
+      sk_col(
+        6,
+        sk_select_input(
+          "reason",
+          "Reason for contacting"
+        )
+      ),
+      sk_col(
+        12,
+        sk_area_input(
+          "message",
+          "Message",
+          placeholder = "hi Dave"
+        )
+      ),
+      sk_button("send", "Send")
+    )
+  )
+
+  server <- function(input, output) {
+    # Server code goes here
+    observeEvent(input$button, {
+      print("Hello standard button")
+    })
+    observeEvent(input$button_primary, {
+      print("Hello button_primary")
+    })
+  }
+  shinyApp(ui, server)
+}
+```
+
+```{r tests-inputs}
+test_that("inputs works", {
+  expect_true(
+    inherits(
+      sk_select_input(
+        "reason",
+        "Reason for contacting",
+        choices = c("Support", "Feedback", "Other")
+      ),
+      "shiny.tag"
+    )
+  )
+  expect_true(
+    inherits(
+      sk_text_input(
+        "email",
+        "Your Email"
+      ),
+      "shiny.tag"
+    )
+  )
+  expect_true(
+    inherits(
+      sk_area_input(
+        "message",
+        "Message",
+        placeholder = "hi Dave"
+      ),
+      "shiny.tag"
+    )
+  )
+})
+```
+
+```{r development-inflate, eval=FALSE}
+# Run but keep eval=FALSE to avoid infinite loop
+# Execute in the console directly
+rm(list = ls())
+fusen::inflate(
+  flat_file = "dev/flat_page_elements.Rmd",
+  vignette_name = NA
+)
+```
+
