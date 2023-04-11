@@ -2,6 +2,28 @@
 
 options("repos" = "https://cran.rstudio.com")
 golem::install_dev_deps(TRUE)
+is_golem <- function(path = getwd()) {
+  files_from_shiny_example <- grep(
+    "^(?!REMOVEME).*",
+    list.files(
+      system.file(
+        "shinyexample",
+        package = "golem"
+      ),
+      recursive = TRUE
+    ),
+    perl = TRUE,
+    value = TRUE
+  )
+  files_from_shiny_example <- grep(
+    "favicon.ico",
+    files_from_shiny_example,
+    perl = TRUE,
+    value = TRUE,
+    invert = TRUE
+  )
+  all(files_from_shiny_example %in% list.files(path, recursive = TRUE))
+}
 test_that("skboilerplate works", {
   skip_if_not_installed("golem")
   old <- setwd(tempdir())
@@ -28,7 +50,7 @@ test_that("skboilerplate works", {
     )
   )
   expect_true(
-    golem::is_golem(".")
+    is_golem(".")
   )
 })
 test_that("skdashboard works", {
@@ -63,6 +85,6 @@ test_that("skdashboard works", {
     )
   )
   expect_true(
-    golem::is_golem(".")
+    is_golem(".")
   )
 })
