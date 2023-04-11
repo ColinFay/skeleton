@@ -11,11 +11,11 @@ License: MIT + file LICENSE
 Depends:
     R (>= 3.3.3)
 Imports:
-    golem (>= 0.4.8),
     htmltools,
     shiny,
-    styler (>= 1.9.1)
+    styler
 Suggests:
+    golem (>= 0.3.1),
     testthat (>= 3.1.7)
 Encoding: UTF-8
 LazyData: true
