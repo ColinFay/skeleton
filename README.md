@@ -29,7 +29,7 @@ This README has been compiled on the
 
 ``` r
 Sys.time()
-#> [1] "2023-04-08 22:32:25 CEST"
+#> [1] "2023-04-11 08:52:31 CEST"
 ```
 
 Here are the test & coverage results :
@@ -37,15 +37,17 @@ Here are the test & coverage results :
 ``` r
 devtools::check(quiet = TRUE)
 #> ℹ Loading skeleton
+#> Writing 'golem_hook.Rd'
+#> Writing 'sk_nav.Rd'
 #> ── R CMD check results ──────────────────────────────── skeleton 0.0.0.9000 ────
-#> Duration: 11s
+#> Duration: 12.7s
 #> 
 #> 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 ```
 
 ``` r
 covr::package_coverage()
-#> skeleton Coverage: 96.60%
+#> skeleton Coverage: 96.62%
 #> R/sk_page.R: 81.82%
 #> R/golem_hook.R: 100.00%
 #> R/sk_buttons.R: 100.00%
@@ -158,10 +160,10 @@ with golem, using the built-in golem hooks:
 ``` r
 golem::create_golem(
   "skboilerplate",
-  project_hook = skeleton::ghook_boilerplate
+  project_hook = skeleton::ghook_sk_dashboard
 )
 golem::create_golem(
   "skdashboard",
-  project_hook = skeleton::ghook_dashboard
+  project_hook = skeleton::ghook_sk_boilerplate
 )
 ```

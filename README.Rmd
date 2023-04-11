@@ -155,11 +155,11 @@ You can get a boilerplate of a page or a dashboard when creating an app with gol
 ```{r eval = FALSE}
 golem::create_golem(
   "skboilerplate",
-  project_hook = skeleton::ghook_boilerplate
+  project_hook = skeleton::ghook_sk_dashboard
 )
 golem::create_golem(
   "skdashboard",
-  project_hook = skeleton::ghook_dashboard
+  project_hook = skeleton::ghook_sk_boilerplate
 )
 ```
 
