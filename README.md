@@ -4,6 +4,8 @@
 # skeleton
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/ColinFay/skeleton/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ColinFay/skeleton/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of skeleton is to [Skeleton CSS](http://getskeleton.com/) for
@@ -29,7 +31,7 @@ This README has been compiled on the
 
 ``` r
 Sys.time()
-#> [1] "2023-04-11 08:52:31 CEST"
+#> [1] "2023-04-11 09:24:56 CEST"
 ```
 
 Here are the test & coverage results :
@@ -37,10 +39,8 @@ Here are the test & coverage results :
 ``` r
 devtools::check(quiet = TRUE)
 #> ℹ Loading skeleton
-#> Writing 'golem_hook.Rd'
-#> Writing 'sk_nav.Rd'
 #> ── R CMD check results ──────────────────────────────── skeleton 0.0.0.9000 ────
-#> Duration: 12.7s
+#> Duration: 18.2s
 #> 
 #> 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 ```
