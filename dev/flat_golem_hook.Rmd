@@ -154,6 +154,7 @@ if (FALSE){
 ```
 
 ```{r tests-golem_hook}
+golem::install_dev_deps(TRUE)
 test_that("skboilerplate works", {
   skip_if_not_installed("golem")
   old <- setwd(tempdir())

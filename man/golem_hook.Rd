@@ -27,14 +27,14 @@ used for side effects
 golem_hook
 }
 \examples{
-if (FALSE) {
+if (FALSE){
   golem::create_golem(
     "skboilerplate",
     project_hook = ghook_sk_boilerplate
-  )
+    )
   golem::create_golem(
     "skdashboard",
     project_hook = skeleton::ghook_sk_dashboard
-  )
+    )
 }
 }
