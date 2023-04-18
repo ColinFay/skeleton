@@ -25,13 +25,13 @@ devtools::install_github("ColinFay/skeleton")
 
 ## About
 
-You’re reading the doc about version : 0.0.0.9001
+You’re reading the doc about version : 0.0.0.9003
 
 This README has been compiled on the
 
 ``` r
 Sys.time()
-#> [1] "2023-04-18 12:56:49 CEST"
+#> [1] "2023-04-18 13:51:50 CEST"
 ```
 
 Here are the test & coverage results :
@@ -39,15 +39,15 @@ Here are the test & coverage results :
 ``` r
 devtools::check(quiet = TRUE)
 #> ℹ Loading skeleton
-#> ── R CMD check results ──────────────────────────────── skeleton 0.0.0.9001 ────
-#> Duration: 12.3s
+#> ── R CMD check results ──────────────────────────────── skeleton 0.0.0.9003 ────
+#> Duration: 33.8s
 #> 
 #> 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 ```
 
 ``` r
 covr::package_coverage()
-#> skeleton Coverage: 96.69%
+#> skeleton Coverage: 96.75%
 #> R/sk_page.R: 81.82%
 #> R/golem_hook.R: 100.00%
 #> R/sk_buttons.R: 100.00%

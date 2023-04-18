@@ -21,7 +21,7 @@
 #'       sk_button_primary("button_primary", "Button primary")
 #'     )
 #'   )
-#'
+#' 
 #'   server <- function(input, output) {
 #'     # Server code goes here
 #'     observeEvent(input$button, {
@@ -37,7 +37,7 @@ sk_button <- function(
   inputId,
   label,
   ...
-    ) {
+){
   shiny::actionButton(
     inputId = inputId,
     label = label,

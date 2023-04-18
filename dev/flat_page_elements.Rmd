@@ -240,7 +240,7 @@ sk_col_two_third <- function(..., id = NULL) {
 #' @importFrom htmltools tags h2
 sk_header <- function(title, ...) {
   tags$section(
-    class = "header",
+    class = "containerheader",
     h2(
       class = "title",
       title

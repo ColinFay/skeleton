@@ -89,7 +89,7 @@ sk_nav <- function(...) {
     # Generating the navbar
     tagList(
       tags$header(
-        class = "header",
+        class = "containerheader",
         tags$nav(
           class = "navbar",
           tags$ul(
