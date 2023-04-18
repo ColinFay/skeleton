@@ -25,7 +25,7 @@ a navbar
 navbar
 }
 \examples{
-if (FALSE) {
+if (FALSE){
   ui <- sk_page(
     sk_row(
       h2("A dead simple, responsive boilerplate."),

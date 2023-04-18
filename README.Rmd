@@ -47,9 +47,7 @@ Here are the test & coverage results :
 devtools::check(quiet = TRUE)
 ```
 
-```{r echo = FALSE}
-unloadNamespace(pkgload::pkg_name())
-```
+
 
 ```{r eval = TRUE, message = TRUE}
 covr::package_coverage()
@@ -85,10 +83,16 @@ shinyApp(ui, server)
 ## Built-in dashboard
 
 ```{r eval = FALSE}
+fusen::inflate(
+  flat_file = "dev/flat_navbar.Rmd",
+  vignette_name = NA,
+  check = FALSE
+)
 library(shiny)
-library(skeleton)
+pkgload::load_all()
+options(shiny.port = httpuv::randomPort())
 ui <- sk_page(
-  sk_row(
+  sk_header(
     h2("A dead simple, responsive boilerplate."),
   ),
   sk_nav(

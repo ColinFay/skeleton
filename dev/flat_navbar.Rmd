@@ -42,30 +42,38 @@ sk_nav <- function(...) {
   tagList(
     # Generating the navbar
     tagList(
-      tags$nav(
-        class = "navbar",
-        tags$div(
-          class = "container",
-          tags$ul(
-            class = "navbar-list",
-            lapply(
-              1:length(uis), {
-                function(idx) {
-                  tags$li(
-                    class = "navbar-item",
-                    tags$a(
-                      class = "navbar-link",
-                      href = "javascript:void(0)",
-                      onclick = sprintf("showContent('row-nav-content-item-%s', that = this)", all_ids[idx]),
-                      all_titles[idx]
+      tags$header(
+        class = "header",
+        tags$nav(
+          class = "navbar",
+            tags$ul(
+              class = "nav-menu",
+              lapply(
+                1:length(uis),
+                {
+                  function(idx) {
+                    tags$li(
+                      class = "nav-item",
+                      tags$a(
+                        class = "navbar-link",
+                        href = "javascript:void(0)",
+                        onclick = sprintf("showContent('row-nav-content-item-%s', that = this)", all_ids[idx]),
+                        all_titles[idx]
+                      )
                     )
-                  )
+                  }
                 }
-              }
+              )
+            ),
+            tags$div(
+              class = "hamburger",
+              tags$span(class = "bar"),
+              tags$span(class = "bar"),
+              tags$span(class = "bar")
             )
-          )
         )
       )
+
     ),
     # Generating the content
     tags$div(
@@ -251,7 +259,8 @@ test_that("navbar works", {
 # Execute in the console directly
 fusen::inflate(
   flat_file = "dev/flat_navbar.Rmd",
-   vignette_name = NA
+   vignette_name = NA,
+   check = FALSE
 )
 ```
 
