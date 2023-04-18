@@ -91,7 +91,12 @@ a.navbar-link.clicked {
   }
 
 @media only screen and (max-width: 768px) {
+  .navbar{
+    height: 0rem;
+    border: none;
+  }
     .nav-menu {
+        display:none;
         position: fixed;
         left: -100%;
         top: 5rem;
@@ -101,17 +106,13 @@ a.navbar-link.clicked {
         border-radius: 10px;
         text-align: center;
         transition: 0.3s;
-        box-shadow:
-            0 10px 27px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
     }
 
     .nav-menu.active {
+      display:block;
         left: 0;
-        z-index: 1;
-    }
-
-    .nav-item {
-        margin: 2.5rem 0;
+        z-index: 122;
     }
 
     .hamburger {

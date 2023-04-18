@@ -13,7 +13,7 @@
 #' @rdname sk_nav
 #'
 #' @examples
-#' if (FALSE){
+#' if (FALSE) {
 #'   ui <- sk_page(
 #'     sk_row(
 #'       h2("A dead simple, responsive boilerplate."),
@@ -80,7 +80,7 @@ sk_nav <- function(...) {
   all_ids <- c()
   all_titles <- c()
   all_uis <- list()
-  for (ui in uis){
+  for (ui in uis) {
     all_ids <- c(all_ids, ui$id)
     all_titles <- c(all_titles, ui$title)
     all_uis[[length(all_uis) + 1]] <- ui$ui
@@ -92,40 +92,40 @@ sk_nav <- function(...) {
         class = "header",
         tags$nav(
           class = "navbar",
-            tags$ul(
-              class = "nav-menu",
-              lapply(
-                1:length(uis),
-                {
-                  function(idx) {
-                    tags$li(
-                      class = "nav-item",
-                      tags$a(
-                        class = "navbar-link",
-                        href = "javascript:void(0)",
-                        onclick = sprintf("showContent('row-nav-content-item-%s', that = this)", all_ids[idx]),
-                        all_titles[idx]
-                      )
+          tags$ul(
+            class = "nav-menu",
+            lapply(
+              1:length(uis),
+              {
+                function(idx) {
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      class = "navbar-link",
+                      href = "javascript:void(0)",
+                      onclick = sprintf("showContent('row-nav-content-item-%s', that = this)", all_ids[idx]),
+                      all_titles[idx]
                     )
-                  }
+                  )
                 }
-              )
-            ),
-            tags$div(
-              class = "hamburger",
-              tags$span(class = "bar"),
-              tags$span(class = "bar"),
-              tags$span(class = "bar")
+              }
             )
+          ),
+          tags$div(
+            class = "hamburger",
+            tags$span(class = "bar"),
+            tags$span(class = "bar"),
+            tags$span(class = "bar")
+          )
         )
       )
-
     ),
     # Generating the content
     tags$div(
       class = "container",
       lapply(
-        1:length(uis), {
+        1:length(uis),
+        {
           function(idx) {
             tags$div(
               class = "row-nav-content-items",
@@ -152,11 +152,10 @@ sk_nav_item <- function(
   id,
   title,
   ui
-) {
+    ) {
   list(
     id = id,
     title = title,
     ui = ui
   )
 }
-

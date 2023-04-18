@@ -35,7 +35,10 @@ sk_deps <- function() {
       "css/font.css",
       "css/skeleton.css",
       "css/normalize.css"
-    )
+    ),
+    head = '<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">'
   )
 }
 ```
@@ -624,7 +627,8 @@ test_that("inputs works", {
 rm(list = ls())
 fusen::inflate(
   flat_file = "dev/flat_page_elements.Rmd",
-  vignette_name = NA
+  vignette_name = NA,
+  check = FALSE
 )
 ```
 
