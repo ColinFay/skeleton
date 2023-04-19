@@ -8,7 +8,7 @@
 [![R-CMD-check](https://github.com/ColinFay/skeleton/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ColinFay/skeleton/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of skeleton is to [Skeleton CSS](http://getskeleton.com/) for
+The goal of skeleton is to provide [Skeleton CSS](http://getskeleton.com/) for
 `{shiny}`.
 
 ## Installation
