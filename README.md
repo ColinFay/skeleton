@@ -8,8 +8,8 @@
 [![R-CMD-check](https://github.com/ColinFay/skeleton/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ColinFay/skeleton/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of skeleton is to provide [Skeleton CSS](http://getskeleton.com/) for
-`{shiny}`.
+The goal of skeleton is to provide [Skeleton
+CSS](http://getskeleton.com/) for `{shiny}`.
 
 ## Installation
 
@@ -31,7 +31,7 @@ This README has been compiled on the
 
 ``` r
 Sys.time()
-#> [1] "2023-04-18 13:51:50 CEST"
+#> [1] "2023-04-20 12:24:33 CEST"
 ```
 
 Here are the test & coverage results :
@@ -40,7 +40,7 @@ Here are the test & coverage results :
 devtools::check(quiet = TRUE)
 #> ℹ Loading skeleton
 #> ── R CMD check results ──────────────────────────────── skeleton 0.0.0.9003 ────
-#> Duration: 33.8s
+#> Duration: 13s
 #> 
 #> 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 ```
@@ -88,14 +88,8 @@ shinyApp(ui, server)
 ## Built-in dashboard
 
 ``` r
-fusen::inflate(
-  flat_file = "dev/flat_navbar.Rmd",
-  vignette_name = NA,
-  check = FALSE
-)
 library(shiny)
-pkgload::load_all()
-options(shiny.port = httpuv::randomPort())
+library(skeleton)
 ui <- sk_page(
   sk_header(
     h2("A dead simple, responsive boilerplate."),

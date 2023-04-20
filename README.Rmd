@@ -83,14 +83,8 @@ shinyApp(ui, server)
 ## Built-in dashboard
 
 ```{r eval = FALSE}
-fusen::inflate(
-  flat_file = "dev/flat_navbar.Rmd",
-  vignette_name = NA,
-  check = FALSE
-)
 library(shiny)
-pkgload::load_all()
-options(shiny.port = httpuv::randomPort())
+library(skeleton)
 ui <- sk_page(
   sk_header(
     h2("A dead simple, responsive boilerplate."),
